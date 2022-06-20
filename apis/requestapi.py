@@ -67,15 +67,15 @@ def register_request():
     return make_response(jsonify({'message':'request sent'}),201)
 
 
-@api.route('/list',methods=["GET"])
+@api.route('/api/requestlist',methods=["GET"])
 @cross_origin()
 def get_request():
     return jsonify( [c.serialize() for c in arr_request] )
 
 
-@api.route('/updaterequest/<int:request_id>',methods=["POST"])
+@api.route('/api/updaterequest/<int:request_id>',methods=["POST"])
 @cross_origin()
-def send_update_request(request_id):
+def send_res_to_request(request_id):
     data=request.form.to_dict()
     requestdata=Requestresponse(
         request_id=request_id,
@@ -91,16 +91,11 @@ def send_update_request(request_id):
     return make_response(jsonify({'message':'request sent'}),201)
 
 
-
-
-
-
-
 # Query
 
 arr_query=[]
 
-@api.route('/querysend',methods=['POST'])
+@api.route('/api/querysend',methods=['POST'])
 def register_query():
     
     data=request.form.to_dict()
@@ -127,16 +122,16 @@ def register_query():
     return make_response(jsonify({'message':'request sent'}),201)
 
 
-@api.route('/listquery',methods=["GET"])
+@api.route('/api/listquery',methods=["GET"])
 @cross_origin()
-def get_query():
+def get_query_res():
     return jsonify( [c.serialize() for c in arr_query] )
 
 
 # doctor to customer 
 
 
-@api.route('/sendrestoquery/<int:query_id>',methods=["POST"])
+@api.route('/api/sendrestoquery/<int:query_id>',methods=["POST"])
 @cross_origin()
 def send_response_toquery(query_id):
     data=request.form.to_dict()
@@ -148,7 +143,6 @@ def send_response_toquery(query_id):
         respond_to_query=data['respond_to_query']
     )
     arr_query.append(requestdata1)
-    print(arr_query)
    
     return make_response(jsonify({'message':'request sent'}),201)
 
