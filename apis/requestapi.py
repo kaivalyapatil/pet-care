@@ -1,4 +1,3 @@
-
 from fileinput import filename
 from flask import Blueprint,jsonify,make_response, request
 from flask_cors import cross_origin
@@ -22,7 +21,7 @@ def get_blueprint():
 
 arr_request=[]
 
-@api.route('/register',methods=['POST'])
+@api.route('/api/request',methods=['POST'])
 @cross_origin()
 def register_request():
     
@@ -53,8 +52,8 @@ def register_request():
     upload_file(binary_file2,"pet-care-new",secure_filename(file2.filename))
 
     # to customer 
-    sub1="pet protal"
-    msg1=f"""
+    sub="pet protal"
+    msg=f"""
         <html>
             <head><title>Conformation mail</title></head>
             <body>
@@ -62,9 +61,9 @@ def register_request():
             </body>
         </html>
     """
-    from_addr1="kaivalyapatil0@gmail.com"
-    to_addr1=addrequest.email
-    send_email(sub1,msg1,from_addr1,to_addr1)
+    from_addr="kaivalyapatil0@gmail.com"
+    to_addr=addrequest.email
+    send_email(sub,msg,from_addr,to_addr)
     return make_response(jsonify({'message':'request sent'}),201)
 
 
@@ -74,7 +73,7 @@ def get_request():
     return jsonify( [c.serialize() for c in arr_request] )
 
 
-@api.route('/updaterequest/<int:request_id>',methods=["GET","POST"])
+@api.route('/updaterequest/<int:request_id>',methods=["POST"])
 @cross_origin()
 def send_update_request(request_id):
     data=request.form.to_dict()
@@ -135,7 +134,7 @@ def get_query():
 
 
 # doctor to customer 
-arr_queryres=[]
+
 
 @api.route('/sendrestoquery/<int:query_id>',methods=["POST"])
 @cross_origin()
@@ -148,16 +147,10 @@ def send_response_toquery(query_id):
         mobile=data['mobile'],
         respond_to_query=data['respond_to_query']
     )
-    arr_queryres.append(requestdata1)
-    print(arr_queryres)
+    arr_query.append(requestdata1)
+    print(arr_query)
    
     return make_response(jsonify({'message':'request sent'}),201)
 
-d=[]
-@api.route('/listquerysol',methods=["GET"])
-@cross_origin()
-def get_output():
-    d=jsonify( ([c.serialize() for c in arr_queryres ]))
-    v.append(d)
-    return v
+
 
