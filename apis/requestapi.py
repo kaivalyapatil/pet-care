@@ -20,7 +20,7 @@ def get_blueprint():
     return api
 
 
-arr=[]
+arr_request=[]
 
 @api.route('/register',methods=['POST'])
 @cross_origin()
@@ -45,9 +45,13 @@ def register_request():
         image=secure_filename(file1.filename),
         reports=secure_filename(file2.filename)
     )
-    arr.append(addrequest)
-    binary_file = io.BytesIO(file1.read())    
-    upload_file(binary_file,"pet-care-new",secure_filename(file1.filename))
+    arr_request.append(addrequest)
+    
+    binary_file1 = io.BytesIO(file1.read())
+    binary_file2 = io.BytesIO(file2.read())
+    upload_file(binary_file1,"pet-care-new",secure_filename(file1.filename))
+    upload_file(binary_file2,"pet-care-new",secure_filename(file2.filename))
+
     # to customer 
     sub1="pet protal"
     msg1=f"""
@@ -61,40 +65,31 @@ def register_request():
     from_addr1="kaivalyapatil0@gmail.com"
     to_addr1=addrequest.email
     send_email(sub1,msg1,from_addr1,to_addr1)
-
-    #owner
-    sub="PET CARE PORTAL"
-    msg=f"""
-        <html>
-            <head><title>Request for pet-service Appointment</title></head>
-            <body>
-                <h3>Hello sir </h3>
-                <p>My name is {addrequest.fullname} ,I have a {addrequest.pet_catagory} .From last 2 days my pet condition is not well .i have mention in detail below ,also attahced some photos and documents regarding the issue.</p>
-                <h5>Issue : {addrequest.issue_description}.</h5>
-                <h5>i request you to arrange doctor as early as possible.</h5>
-                <h5>thank you.</h5>
-                <h5>Address:{addrequest.address} , city:{addrequest.city}, pincode:{addrequest.pincode}</h5>
-                <h5>pet_catagory:{addrequest.pet_catagory}, pet_age:{addrequest.pet_age}, pet_gender:{addrequest.pet_gender}</h5>
-                <h5>image:{addrequest.image}</h5>
-                <h5>reports:{addrequest.reports}</h5>
-            </body>
-        </html>
-    """
-
-
-    from_addr=addrequest.email
-    to_addr="kaivalyapatil0@gmail.com"
-    file_attachments=[addrequest.image,addrequest.reports]
-    send_mail_with_attachments(sub,msg,from_addr,to_addr,file_attachments)
-              
-    
     return make_response(jsonify({'message':'request sent'}),201)
 
 
 @api.route('/list',methods=["GET"])
 @cross_origin()
 def get_request():
-    return jsonify( [c.serialize() for c in arr] )
+    return jsonify( [c.serialize() for c in arr_request] )
+
+
+@api.route('/updaterequest/<int:request_id>',methods=["GET","POST"])
+@cross_origin()
+def send_update_request(request_id):
+    data=request.form.to_dict()
+    requestdata=Requestresponse(
+        request_id=request_id,
+        doctor_name=data['doctor_name'],
+        email=data['email'],
+        mobile=data['mobile'],
+        visit_date_time=data['visit_date_time'],
+        fees=data['fees']
+    )
+    arr_request.append(requestdata)
+    print(arr_request)
+   
+    return make_response(jsonify({'message':'request sent'}),201)
 
 
 # owner to customer 
@@ -115,29 +110,6 @@ def send_response_mail():
     arr2.append(requestdata)
     print(arr2)
    
-    sub="PET CARE PORTAL"
-    msg=f"""
-        <html>
-            <head><title>Response from pet Care Center</title></head>
-            <body>    
-                <h3>Thank you for beliving in us</h3>
-                <p>your appointment details given below</p>
-                <p>request_id:{requestdata.request_id}</p>
-                <p>doctor_name:{requestdata.doctor_name}</p>
-                <p>email:{requestdata.email} ,     mobile:{requestdata.mobile}</p>
-                <p>visit_date_time:{requestdata.visit_date_time}</p>
-                <p>fees:{requestdata.fees}</p>
-                <h4>owner pet service</h4>
-                <h5>mobile no:8898765678</h5>
-            </body>
-        </html>
-    """
-
-   
-
-    from_addr=requestdata.email
-    to_addr="kaivalyapatil0@gmail.com"
-    send_email(sub,msg,from_addr,to_addr)
     return make_response(jsonify({'message':'request sent'}),201)
 
 
@@ -167,38 +139,14 @@ def register_query():
     arr_query.append(addquery)
     binary_file = io.BytesIO(file1.read())    
     upload_file(binary_file,"pet-care-new",secure_filename(file1.filename))
-    sub="PET CARE PORTAL"
-    msg=f"""
-        <html>
-            <head><title>Request for online consultation</title></head>
-            <body>
-                <p>Hello sir </p>
-                <p>My name is {addquery.fullname} ,I have a {addquery.pet_catagory} .From last 2 days my pet condition is not well .i have mention in detail below ,also attahced some photos and documents regarding the issue.</p>
-                <p>Issue : {addquery.issue_description}.</p>
-                <p>i request you sir to reply as early as possible.</p>
-                <p>thank you.</p>
-                <p>pet_catagory:{addquery.pet_catagory}</p>
-                <p>pet_age:{addquery.pet_age}</p>
-                <p>pet_gender:{addquery.pet_gender}</p>
-                <p>image:{addquery.image}</p>
-                <p>reports:{addquery.reports}</p>
-            </body>
-        </html>
-    """
-
-
-    from_addr=addquery.email
-    to_addr="kaivalyapatil0@gmail.com"
-    send_email(sub,msg,from_addr,to_addr)
-              
-    
     return make_response(jsonify({'message':'request sent'}),201)
 
-
+v=[]
 @api.route('/listquery',methods=["GET"])
 @cross_origin()
 def get_query():
-    return jsonify( [c.serialize() for c in arr_query] )
+    v=jsonify( [c.serialize() for c in arr_query] )
+    return v
 
 
 # doctor to customer 
@@ -218,32 +166,13 @@ def send_response_toquery():
     arr_queryres.append(requestdata1)
     print(arr_queryres)
    
-
-    sub="PET CARE PORTAL"
-    msg=f"""
-        <html>
-            <head><title>Respond to query</title></head>
-            <body>
-                <h3>Thank you for beliving in us</h3>
-                <p>request_id:{requestdata1.request_id}</p>
-                <p>respond_to_query:{requestdata1.respond_to_query}</p>
-                <p>doctor_name:{requestdata1.doctor_name}</p>
-                <p>email:{requestdata1.email} ,     mobile:{requestdata1.mobile}</p>
-                <p>
-            </body>
-        </html>
-    """
-
-    
-
-    from_addr=requestdata1.email
-    to_addr="kaivalyapatil0@gmail.com"
-    send_email(sub,msg,from_addr,to_addr)
     return make_response(jsonify({'message':'request sent'}),201)
 
-
+d=[]
 @api.route('/listquerysol',methods=["GET"])
 @cross_origin()
 def get_output():
-    return jsonify( [c.serialize() for c in arr_queryres] )
+    d=jsonify( ([c.serialize() for c in arr_queryres ]))
+    v.append(d)
+    return v
 

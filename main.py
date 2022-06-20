@@ -4,7 +4,7 @@ from flask_cors import CORS
 
 app=Flask(__name__)
 cors=CORS(app)
-from apis import requestapi,queryapi
+from apis import requestapi
 
 @app.before_request
 def before():                                                                                   
