@@ -109,7 +109,7 @@ def register_query():
     file2 = request.files['doc']
     
     addquery=Query(
-        request_id=data['request_id'],
+        query_id=data['query_id'],
         fullname=data['fullname'],
         email=data['email'],
         mobile=data['mobile'],
@@ -127,23 +127,22 @@ def register_query():
     upload_file(binary_file2,"pet-care-new",secure_filename(file2.filename))
     return make_response(jsonify({'message':'request sent'}),201)
 
-v=[]
+
 @api.route('/listquery',methods=["GET"])
 @cross_origin()
 def get_query():
-    v=jsonify( [c.serialize() for c in arr_query] )
-    return v
+    return jsonify( [c.serialize() for c in arr_query] )
 
 
 # doctor to customer 
 arr_queryres=[]
 
-@api.route('/sendrestoquery',methods=["POST"])
+@api.route('/sendrestoquery/<int:query_id>',methods=["POST"])
 @cross_origin()
-def send_response_toquery():
+def send_response_toquery(query_id):
     data=request.form.to_dict()
     requestdata1=Updatequery(
-        request_id=data['request_id'],
+        query_id=query_id,
         doctor_name=data['doctor_name'],
         email=data['email'],
         mobile=data['mobile'],

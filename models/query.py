@@ -1,6 +1,6 @@
 
 class Query:
-    request_id:int =0
+    query_id:int =0
     fullname:str=""
     email:str=""
     mobile:str=""
@@ -11,8 +11,8 @@ class Query:
     image:str=""
     reports:str=""
 
-    def __init__(self,request_id:int, fullname:str,email:str,mobile:str,pet_catagory:str,pet_age:str,pet_gender:str,issue_description:str,image:str,reports:str)->None:
-        self.request_id=request_id
+    def __init__(self,query_id:int, fullname:str,email:str,mobile:str,pet_catagory:str,pet_age:str,pet_gender:str,issue_description:str,image:str,reports:str)->None:
+        self.query_id=query_id
         self.fullname=fullname
         self.email=email
         self.mobile=mobile
@@ -25,7 +25,7 @@ class Query:
    
     def serialize(self) -> any:
         return {
-            'request_id':self.request_id,
+            'query_id':self.query_id,
             'fullname':self.fullname,
            'email':self.email,
             'mobile':self.mobile,

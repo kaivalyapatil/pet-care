@@ -1,14 +1,14 @@
 #as a owner to customer
 class Updatequery:
-    request_id:int =0
+    query_id:int =0
     doctor_name:str=""
     email:str=""
     mobile:str=""
     respond_to_query:str=""
     
 
-    def __init__(self,request_id:int, doctor_name:str,email:str,mobile:str,respond_to_query:str)->None:
-        self.request_id=request_id
+    def __init__(self,query_id:int, doctor_name:str,email:str,mobile:str,respond_to_query:str)->None:
+        self.query_id=query_id
         self.doctor_name=doctor_name
         self.email=email
         self.mobile=mobile
@@ -16,7 +16,7 @@ class Updatequery:
         
     def serialize(self) -> any:
         return {
-            'request_id':self.request_id,
+            'query_id':self.query_id,
             'doctor_name':self.doctor_name,
            'email':self.email,
             'mobile':self.mobile,
