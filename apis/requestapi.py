@@ -143,6 +143,7 @@ def get_request():
 
     return jsonify( [c.serialize() for c in arr_request] )
 
+arr_response=[]
 
 @api.route('/api/updaterequest/<int:request_id>',methods=["POST"])
 @cross_origin()
@@ -176,11 +177,39 @@ def send_res_to_request(request_id):
         visit_date_time=data['visit_date_time'],
         fees=data['fees']
     )
-    arr_request.append(requestdata)
-    print(arr_request)
+    arr_response.append(requestdata)
+    print(arr_response)
    
-    return make_response(jsonify({'message':'response sent'}),201)
+    return make_response(jsonify({'message':'response sent to customer'}),201)
 
+@api.route('/api/responselist',methods=["GET"])
+@cross_origin()
+def get_request():
+   
+    '''For Getting the response parameters
+
+    Parameters:
+
+    request_id : int
+            Request id
+    doctor_name   : str
+            Name of the doctor 
+    email      : str
+            Person emailID
+    mobile     : str
+            Person mobile no
+    visit_date_time    : str
+            Person visit_date_time
+    fees       :
+            Person fees
+   
+    Returns
+    -------
+    list
+        a list of request receiving to the doctor
+    '''
+
+    return jsonify( [c.serialize() for c in arr_response] )
 
 # Query
 
@@ -237,7 +266,7 @@ def register_query():
     binary_file2 = io.BytesIO(file2.read())  
     upload_file(binary_file1,"pet-care-new",secure_filename(file1.filename))
     upload_file(binary_file2,"pet-care-new",secure_filename(file2.filename))
-    return make_response(jsonify({'message':'request sent'}),201)
+    return make_response(jsonify({'message':'query sent successfully'}),201)
 
 
 @api.route('/api/listquery',methods=["GET"])
@@ -248,8 +277,8 @@ def get_query_res():
  
  Parameters:
 
-    request_id : int
-            Request id
+    query_id : int
+            Query id
     fullname   : str
             Name of the person who wants to send the request
     email      : str
@@ -279,6 +308,7 @@ def get_query_res():
 
 # doctor to customer 
 
+arr_queryresponse=[]
 
 @api.route('/api/sendrestoquery/<int:query_id>',methods=["POST"])
 @cross_origin()
@@ -310,19 +340,34 @@ def send_response_toquery(query_id):
         mobile=data['mobile'],
         respond_to_query=data['respond_to_query']
     )
-    arr_query.append(requestdata1)
+    arr_queryresponse.append(requestdata1)
     
-    return make_response(jsonify({'message':'request sent'}),201)
+    return make_response(jsonify({'message':'response to query sent successfully'}),201)
 
 
 
-# def add(a, b):
-#     """
-#     Sum up two integers
-#     Arguments:
-#         a: an integer
-#         b: an integer
-#     Returns:
-#         The sum of the two integer arguments
-#     """
-#     return a + b
+@api.route('/api/listquery',methods=["GET"])
+@cross_origin()
+def get_query_res():
+    
+    '''get all the queries
+ 
+ Parameters:
+
+    query_id : int
+            query_id id
+        doctor_name:str
+            Name of the Doctor
+        email:str
+            EmailID of the Doctor
+        mobile:str
+            Doctor mobile No
+        respond_to_query:str
+            Doctor Send the particular solution
+
+    Return
+        list
+            a list of query response from doctor to customer
+    '''
+
+    return jsonify( [c.serialize() for c in arr_queryresponse] )
