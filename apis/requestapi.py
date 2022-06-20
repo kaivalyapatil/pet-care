@@ -24,7 +24,39 @@ arr_request=[]
 @api.route('/api/request',methods=['POST'])
 @cross_origin()
 def register_request():
-    """add the request"""
+    '''For Sending the request parameters these are required
+ 
+ Parameters:
+
+    request_id : int
+            Request id
+    fullname   : str
+            Name of the person who wants to send the request
+    email      : str
+            Person emailID
+    mobile     : str
+            Person mobile no
+    address    : str
+            Person Address
+    city       :
+            Person city
+    pincode    :str
+            Person city pincode it must be unique
+    pet_catagory:str
+            Which type of Animal, Dog,Cat etc.
+    pet_age     :str
+            pet Age
+    pet_gender  :str
+            pet gender
+    issue_description:str
+           if pet is having some medical treament describe here issue 
+    image       :str
+            share injury pictures
+    reports     :str
+            share previous medical reports
+    
+    '''
+
     
     data=request.form.to_dict()
     file1 = request.files['image']
@@ -71,14 +103,70 @@ def register_request():
 @api.route('/api/requestlist',methods=["GET"])
 @cross_origin()
 def get_request():
-    '''Get all the request and response'''
+   
+    '''For Getting the request parameters
+
+    Parameters:
+
+    request_id : int
+            Request id
+    fullname   : str
+            Name of the person who is sending the request to the Docter
+    email      : str
+            Person emailID
+    mobile     : str
+            Person mobile no
+    address    : str
+            Person Address
+    city       :
+            Person city
+    pincode    :str
+            Person city pincode it must be unique
+    pet_catagory:str
+            Which type of Animal, Dog,Cat etc.
+    pet_age     :str
+            pet Age
+    pet_gender  :str
+            pet gender
+    issue_description:str
+           if pet is having some medical treament describe here issue 
+    image       :str
+            injury pictures
+    reports     :str
+            previous medical reports
+
+    Returns
+    -------
+    list
+        a list of request receiving to the doctor
+    '''
+
     return jsonify( [c.serialize() for c in arr_request] )
 
 
 @api.route('/api/updaterequest/<int:request_id>',methods=["POST"])
 @cross_origin()
 def send_res_to_request(request_id):
-    '''Add the response to request'''
+   
+    '''Response back to request providing details of the Doctor
+
+    Parameters:
+
+        request_id: int
+            Response revert back to person woh is send the request through requestId
+        doctor_name:str
+            Name of the Doctor
+        email:str
+            EmailID of the Doctor
+        mobile:str
+            Doctor mobile no
+        visit_date_time:str
+            Appointment Date and time
+        fees:str
+            Fees they are offered
+   
+    '''
+
     data=request.form.to_dict()
     requestdata=Requestresponse(
         request_id=request_id,
@@ -100,7 +188,34 @@ arr_query=[]
 
 @api.route('/api/querysend',methods=['POST'])
 def register_query():
-    '''Add the query'''
+    
+    '''For Sending the query parameters these are required
+ 
+ Parameters:
+
+    request_id : int
+            Request id
+    fullname   : str
+            Name of the person who wants to send the request
+    email      : str
+            Person emailID
+    mobile     : str
+            Person mobile no
+    pet_catagory:str
+            Which type of Animal, Dog,Cat etc.
+    pet_age     :str
+            pet Age
+    pet_gender  :str
+            pet gender
+    issue_description:str
+           if pet is having some medical treament describe here issue 
+    image       :str
+            share injury pictures
+    reports     :str
+            share previous medical reports
+    
+    '''
+
     data=request.form.to_dict()
     file1 = request.files['image']
     file2 = request.files['doc']
@@ -128,7 +243,37 @@ def register_query():
 @api.route('/api/listquery',methods=["GET"])
 @cross_origin()
 def get_query_res():
-    '''Get all the query and response'''
+    
+    '''get all the queries
+ 
+ Parameters:
+
+    request_id : int
+            Request id
+    fullname   : str
+            Name of the person who wants to send the request
+    email      : str
+            Person emailID
+    mobile     : str
+            Person mobile no
+    pet_catagory:str
+            Which type of Animal, Dog,Cat etc.
+    pet_age     :str
+            pet Age
+    pet_gender  :str
+            pet gender
+    issue_description:str
+           write a query if they have 
+    image       :str
+            share pictures
+    reports     :str
+            share medical reports
+    
+    Return
+        list
+            a list of query related to pet
+    '''
+
     return jsonify( [c.serialize() for c in arr_query] )
 
 
@@ -138,7 +283,25 @@ def get_query_res():
 @api.route('/api/sendrestoquery/<int:query_id>',methods=["POST"])
 @cross_origin()
 def send_response_toquery(query_id):
-    '''Add the response to query'''
+    
+    '''Response back to query,providing details of the Doctor
+
+    Parameters:
+
+        query_id: int
+            Response revert back to person woh is send the request through query_Id
+        doctor_name:str
+            Name of the Doctor
+        email:str
+            EmailID of the Doctor
+        mobile:str
+            Doctor mobile No
+        respond_to_query:str
+            Doctor Send the particular solution
+
+   
+    '''
+
     data=request.form.to_dict()
     requestdata1=Updatequery(
         query_id=query_id,
