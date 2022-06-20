@@ -31,7 +31,7 @@
                     "description": "Request object to add",
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "application/x-form-urlencoded": {
                             "schema": {
                                 "$ref": "#/components/schemas/petrequest"
                             }
@@ -236,18 +236,22 @@
                     "request_id": {
                         "type": "integer",
                         "format": "int64"
+                       
                     },
                     "fullname": {
                         "type": "string",
                         "format": "string"
+                       
                     },
                     "email": {
                         "type": "string",
                         "format": "string"
+                        
                     },
                     "mobile": {
                         "type": "string",
                         "format": "string"
+                       
                     },
                     "address": {
                         "type": "string",
@@ -278,8 +282,8 @@
                         "format": "string"
                     },
                     "image": {
-                        "type": "string",
-                        "format": "string"
+                        "type": "file",
+                        "format": "file"
                     },
                     "reports": {
                         "type": "string",
@@ -290,6 +294,7 @@
 
             "response": {
                 "type": "object",
+                "in":"formData",
                 "required": [
                     "request_id",
                     "doctor_name",

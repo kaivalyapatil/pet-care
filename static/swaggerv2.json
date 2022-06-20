@@ -1,0 +1,376 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Request and query APIS",
+        "version": "1.0.0",
+        "title": "PetStore",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "email": "kaivalyapatil@gmail.com"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "paths": {
+        "/api/requestlist": {
+            "get": {
+                "tags": [
+                    "Request Details"
+                ],
+                "description": "Returns the list of request",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array"                      
+                        }
+                    }
+                }
+            }
+            
+        },
+        "/api/listquery": {
+            "get": {
+                "tags": [
+                    "Query Details"
+                ],
+                "description": "Returns the list of Query",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array"                      
+                        }
+                    }
+                }
+            }
+            
+        },
+
+        "/api/request":{
+            "post":{
+                "tags":[
+                    "Add new request"
+                ],
+                "parameters":[
+                    {
+                        "name":"request_id",
+                        "in":"formData",
+                        "type":"number",
+                        "required":"True"
+                    },
+                    {
+                        "name":"fullname",
+                        "in":"formData",
+                        "type":"string",
+                        "required":"True"
+
+                    },
+                    {
+                        "name":"email",
+                        "in":"formData",
+                        "type":"string",
+                        "required":"True"
+                    },
+                    {
+                        "name":"mobile",
+                        "in":"formData",
+                        "type":"string",
+                        "required":"True"
+                    },
+                    {
+                        "name":"address",
+                        "in":"formData",
+                        "type":"string",
+                        "required":"True"
+                    },
+                    {
+                        "name":"city",
+                        "in":"formData",
+                        "type":"string",
+                        "required":"True"
+                    },
+                    {
+                        "name":"pincode",
+                        "in":"formData",
+                        "type":"string",
+                        "required":"True"
+                    },
+                    {
+                        "name":"pet_catagory",
+                        "in":"formData",
+                        "type":"string",
+                        "required":"True"
+                    },
+                    {
+                        "name":"pet_age",
+                        "in":"formData",
+                        "type":"string",
+                        "required":"True"
+                    },
+                    {
+                        "name":"pet_gender",
+                        "in":"formData",
+                        "type":"string",
+                        "required":"True"
+                    },
+                    {
+                        "name":"issue_description",
+                        "in":"formData",
+                        "type":"string",
+                        "required":"True"
+                    },
+                   
+        
+                    {
+                        "name": "image",
+                        "in":"formData",
+                        "description":"The files of image",
+                        "type":"array",
+                        "items": {
+                            "type": "file"
+                        }
+
+                    },
+                    {
+                        "name": "reports",
+                        "in":"formData",
+                        "description":"The files of report",
+                        "type":"array",
+                        "items": {
+                            "type": "file"
+                        }
+
+
+                    }
+
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array"                      
+                        }
+                    }
+                }
+            }
+        },
+        "/api/updaterequest/{request_id}":{
+            "post":{
+                "tags":[
+                    "response from doctor to request"
+                ],
+                "parameters":[
+                    {
+                        "name":"request_id",
+                        "in":"path",
+                        "type":"number",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                        
+                    },
+                    {
+                        "name":"doctor_name",
+                        "in":"formData",
+                        "type":"string",
+                        "required":"True"
+
+                    },
+                    {
+                        "name":"email",
+                        "in":"formData",
+                        "type":"string",
+                        "required":"True"
+                    },
+                    {
+                        "name":"mobile",
+                        "in":"formData",
+                        "type":"string",
+                        "required":"True"
+                    },
+                    {
+                        "name":"visit_date_time",
+                        "in":"formData",
+                        "type":"string",
+                        "required":"True"
+                    },
+                    {
+                        "name":"fees",
+                        "in":"formData",
+                        "type":"string",
+                        "required":"True"
+                    }
+                    
+
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array"                      
+                        }
+                    }
+                }
+            }
+        },
+        "/api/querysend":{
+            "post":{
+                "tags":[
+                    "Add new onlinequery"
+                ],
+                "parameters":[
+                    {
+                        "name":"query_id",
+                        "in":"formData",
+                        "type":"number",
+                        "required":"True"
+                    },
+                    {
+                        "name":"fullname",
+                        "in":"formData",
+                        "type":"string",
+                        "required":"True"
+
+                    },
+                    {
+                        "name":"email",
+                        "in":"formData",
+                        "type":"string",
+                        "required":"True"
+                    },
+                    {
+                        "name":"mobile",
+                        "in":"formData",
+                        "type":"string",
+                        "required":"True"
+                    },
+                    {
+                        "name":"pet_catagory",
+                        "in":"formData",
+                        "type":"string",
+                        "required":"True"
+                    },
+                    {
+                        "name":"pet_age",
+                        "in":"formData",
+                        "type":"string",
+                        "required":"True"
+                    },
+                    {
+                        "name":"pet_gender",
+                        "in":"formData",
+                        "type":"string",
+                        "required":"True"
+                    },
+                    {
+                        "name":"issue_description",
+                        "in":"formData",
+                        "type":"string",
+                        "required":"True"
+                    },
+                   
+        
+                    {
+                        "name": "image",
+                        "in":"formData",
+                        "description":"The files of image",
+                        "type":"array",
+                        "items": {
+                            "type": "file"
+                        }
+
+                    },
+                    {
+                        "name": "reports",
+                        "in":"formData",
+                        "description":"The files of report",
+                        "type":"array",
+                        "items": {
+                            "type": "file"
+                        }
+
+
+                    }
+
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array"                      
+                        }
+                    }
+                }
+            }
+        },
+        "/api/sendrestoquery/{query_id}":{
+            "post":{
+                "tags":[
+                    "response from doctor to query"
+                ],
+                "parameters":[
+                    {
+                        "name":"query_id",
+                        "in":"path",
+                        "type":"number",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                        
+                    },
+                    {
+                        "name":"doctor_name",
+                        "in":"formData",
+                        "type":"string",
+                        "required":"True"
+
+                    },
+                    {
+                        "name":"email",
+                        "in":"formData",
+                        "type":"string",
+                        "required":"True"
+                    },
+                    {
+                        "name":"mobile",
+                        "in":"formData",
+                        "type":"string",
+                        "required":"True"
+                    },
+                    {
+                        "name":"respond_to_query",
+                        "in":"formData",
+                        "type":"string",
+                        "required":"True"
+                    }
+                    
+
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array"                      
+                        }
+                    }
+                }
+            }
+        }
+           
+    }
+}

@@ -91,7 +91,7 @@ def send_res_to_request(request_id):
     arr_request.append(requestdata)
     print(arr_request)
    
-    return make_response(jsonify({'message':'request sent'}),201)
+    return make_response(jsonify({'message':'response sent'}),201)
 
 
 # Query
@@ -148,8 +148,18 @@ def send_response_toquery(query_id):
         respond_to_query=data['respond_to_query']
     )
     arr_query.append(requestdata1)
-   
+    
     return make_response(jsonify({'message':'request sent'}),201)
 
 
 
+# def add(a, b):
+#     """
+#     Sum up two integers
+#     Arguments:
+#         a: an integer
+#         b: an integer
+#     Returns:
+#         The sum of the two integer arguments
+#     """
+#     return a + b

@@ -22,12 +22,12 @@ app.register_blueprint(requestapi.get_blueprint())
 
 # Swagger configuration
 SWAGGER_URL = '/swagger'
-API_URL = '/static/swaggerv3.json'
+API_URL = '/static/swaggerv2.json'
 SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
     SWAGGER_URL,
     API_URL,
     config={
-        'app_name': "Books API"
+        'app_name': "Pet Care API"
     }
 )
 app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
