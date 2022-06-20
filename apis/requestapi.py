@@ -92,25 +92,9 @@ def send_update_request(request_id):
     return make_response(jsonify({'message':'request sent'}),201)
 
 
-# owner to customer 
-arr2=[]
 
-@api.route('/sendmail',methods=["POST"])
-@cross_origin()
-def send_response_mail():
-    data=request.json
-    requestdata=Requestresponse(
-        request_id=data['request_id'],
-        doctor_name=data['doctor_name'],
-        email=data['email'],
-        mobile=data['mobile'],
-        visit_date_time=data['visit_date_time'],
-        fees=data['fees']
-    )
-    arr2.append(requestdata)
-    print(arr2)
-   
-    return make_response(jsonify({'message':'request sent'}),201)
+
+
 
 
 # Query
@@ -137,8 +121,10 @@ def register_query():
         reports=secure_filename(file2.filename)
     )
     arr_query.append(addquery)
-    binary_file = io.BytesIO(file1.read())    
-    upload_file(binary_file,"pet-care-new",secure_filename(file1.filename))
+    binary_file1 = io.BytesIO(file1.read())
+    binary_file2 = io.BytesIO(file2.read())  
+    upload_file(binary_file1,"pet-care-new",secure_filename(file1.filename))
+    upload_file(binary_file2,"pet-care-new",secure_filename(file2.filename))
     return make_response(jsonify({'message':'request sent'}),201)
 
 v=[]
