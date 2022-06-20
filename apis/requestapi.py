@@ -24,6 +24,7 @@ arr_request=[]
 @api.route('/api/request',methods=['POST'])
 @cross_origin()
 def register_request():
+    """add the request"""
     
     data=request.form.to_dict()
     file1 = request.files['image']
@@ -70,12 +71,14 @@ def register_request():
 @api.route('/api/requestlist',methods=["GET"])
 @cross_origin()
 def get_request():
+    '''Get all the request and response'''
     return jsonify( [c.serialize() for c in arr_request] )
 
 
 @api.route('/api/updaterequest/<int:request_id>',methods=["POST"])
 @cross_origin()
 def send_res_to_request(request_id):
+    '''Add the response to request'''
     data=request.form.to_dict()
     requestdata=Requestresponse(
         request_id=request_id,
@@ -97,7 +100,7 @@ arr_query=[]
 
 @api.route('/api/querysend',methods=['POST'])
 def register_query():
-    
+    '''Add the query'''
     data=request.form.to_dict()
     file1 = request.files['image']
     file2 = request.files['doc']
@@ -125,6 +128,7 @@ def register_query():
 @api.route('/api/listquery',methods=["GET"])
 @cross_origin()
 def get_query_res():
+    '''Get all the query and response'''
     return jsonify( [c.serialize() for c in arr_query] )
 
 
@@ -134,6 +138,7 @@ def get_query_res():
 @api.route('/api/sendrestoquery/<int:query_id>',methods=["POST"])
 @cross_origin()
 def send_response_toquery(query_id):
+    '''Add the response to query'''
     data=request.form.to_dict()
     requestdata1=Updatequery(
         query_id=query_id,

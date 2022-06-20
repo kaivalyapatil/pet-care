@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, make_response, request
 from flask_cors import CORS
+from flask_swagger_ui import get_swaggerui_blueprint
 
 
 app=Flask(__name__)
@@ -19,7 +20,17 @@ def handle_500_error(_error):
 app.register_blueprint(requestapi.get_blueprint())
 # app.register_blueprint(queryapi.get_blueprint())
 
-
+# Swagger configuration
+SWAGGER_URL = '/swagger'
+API_URL = '/static/swaggerv3.json'
+SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': "Books API"
+    }
+)
+app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 
 
 

@@ -27,7 +27,7 @@ class Query:
         return {
             'query_id':self.query_id,
             'fullname':self.fullname,
-           'email':self.email,
+            'email':self.email,
             'mobile':self.mobile,
             'pet_catagory':self.pet_catagory,
             'pet_age':self.pet_age,

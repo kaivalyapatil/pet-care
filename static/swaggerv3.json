@@ -1,0 +1,421 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "description": "Sample flask REST api",
+        "version": "1.0.0",
+        "title": "Pet Service API",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "Kaivalya Patil",
+            "email": "kaivalyap99@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8090"
+        }
+    ],
+    "paths": {
+        "/api/request": {
+            "post": {
+                "tags": [
+                    "register request"
+                ],
+                "summary": "Create a new request",
+                "operationId": "addrequest",
+                "requestBody": {
+                    "description": "Request object to add",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/petrequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Return newly added book",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/petrequest"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Bad request"
+                    }
+                }
+            }
+        },
+        "/api/updaterequest/{request_id}": {
+            "post": {
+                "tags": [
+                    "Send response to request"
+                ],
+                "summary": "Create a new Response",
+                "operationId": "response",
+                "requestBody": {
+                    "description": "Response object to add",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/response"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Return newly added book",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/response"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Bad request"
+                    }
+                }
+            }
+        },
+        "/api/requestlist": {
+            "get": {
+                "tags": [
+                    "request Api"
+                ],
+               
+                "operationId": "getRequest",
+                "responses": {
+                    "200": {
+                        "description": "Return all Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref1": "#/components/schemas/petrequest",
+                                        "$ref2": "#/components/schemas/response"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            
+        },
+        "/api/query": {
+            "post": {
+                "tags": [
+                    "register query"
+                ],
+                "summary": "Create a new query",
+                "operationId": "addquery",
+                "requestBody": {
+                    "description": "query object to add",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/query"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Return newly added book",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/query"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Bad request"
+                    }
+                }
+            }
+        },
+        "/api/sendrestoquery/{query_id}": {
+            "post": {
+                "tags": [
+                    "Send response to query"
+                ],
+                "summary": "Create a new Response",
+                "operationId": "response",
+                "requestBody": {
+                    "description": "Response object to add",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/queryresponse"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Return newly added book",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/queryresponse"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Bad request"
+                    }
+                }
+            }
+        },
+        "/api/listquery": {
+            "get": {
+                "tags": [
+                    "request Api"
+                ],
+               
+                "operationId": "getRequest",
+                "responses": {
+                    "200": {
+                        "description": "Return all Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref1": "#/components/schemas/query",
+                                        "$ref2": "#/components/schemas/queryresponse"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "petrequest": {
+                "type": "object",
+                "required": [
+                    "request_id",
+                    "fullname",
+                    "email",
+                    "mobile",
+                    "address",
+                    "city",
+                    "pincode",
+                    "pet_catagory",
+                    "pet_age",
+                    "pet_gender",
+                    "issue_description",
+                    "image",
+                    "reports"
+                ],
+                "properties": {
+                    "request_id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "fullname": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "mobile": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "address": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "city": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "pincode": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "pet_catagory": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "pet_age": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "pet_gender": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "issue_description": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "image": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "reports": {
+                        "type": "string",
+                        "format": "string"
+                    }
+                }
+            },
+
+            "response": {
+                "type": "object",
+                "required": [
+                    "request_id",
+                    "doctor_name",
+                    "email",
+                    "mobile",
+                    "visit_date_time",
+                    "fees"
+                ],
+                "properties": {
+                    "request_id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "doctor_name": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "mobile": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "visit_date_time": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "fees": {
+                        "type": "string",
+                        "format": "string"
+                    }
+                }
+            },
+            "query": {
+                "type": "object",
+                "required": [
+                    "query_id",
+                    "fullname",
+                    "email",
+                    "mobile",
+                    "pet_catagory",
+                    "pet_age",
+                    "pet_gender",
+                    "issue_description",
+                    "image",
+                    "reports"
+                ],
+                "properties": {
+                    "request_id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "fullname": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "mobile": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "pet_catagory": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "pet_age": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "pet_gender": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "issue_description": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "image": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "reports": {
+                        "type": "string",
+                        "format": "string"
+                    }
+                }
+            },
+            "queryresponse": {
+                "type": "object",
+                "required": [
+                    "query_id",
+                    "doctor_name",
+                    "email",
+                    "mobile",
+                    "respond_to_query"
+                   
+                ],
+                "properties": {
+                    "request_id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "doctor_name": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "mobile": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "respond_to_query": {
+                        "type": "string",
+                        "format": "string"
+                    }
+                }
+            }
+
+        }
+    }
+}
