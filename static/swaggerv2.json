@@ -38,12 +38,53 @@
             }
             
         },
+
         "/api/listquery": {
             "get": {
                 "tags": [
                     "Query Details"
                 ],
                 "description": "Returns the list of Query",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array"                      
+                        }
+                    }
+                }
+            }
+            
+        },
+        "/api/listqueryresponse": {
+            "get": {
+                "tags": [
+                    "Query response Details"
+                ],
+                "description": "Returns the list of query response",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array"                      
+                        }
+                    }
+                }
+            }
+            
+        },
+        "/api/responselist": {
+            "get": {
+                "tags": [
+                    "response Details"
+                ],
+                "description": "Returns the list of request response",
                 "produces": [
                     "application/json"
                 ],

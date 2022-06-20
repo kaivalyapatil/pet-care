@@ -184,7 +184,7 @@ def send_res_to_request(request_id):
 
 @api.route('/api/responselist',methods=["GET"])
 @cross_origin()
-def get_request():
+def get_request_res():
    
     '''For Getting the response parameters
 
@@ -271,7 +271,7 @@ def register_query():
 
 @api.route('/api/listquery',methods=["GET"])
 @cross_origin()
-def get_query_res():
+def get_query():
     
     '''get all the queries
  
@@ -346,7 +346,7 @@ def send_response_toquery(query_id):
 
 
 
-@api.route('/api/listquery',methods=["GET"])
+@api.route('/api/listqueryresponse',methods=["GET"])
 @cross_origin()
 def get_query_res():
     
