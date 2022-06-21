@@ -1,7 +1,7 @@
 FROM python:3.10
 
 ENV POETRY_VERSION=1.1.13
-
+ENV AWS_REGION="ap-south-1"
 
 # System deps:
 RUN pip install "poetry==$POETRY_VERSION"
